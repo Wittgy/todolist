@@ -78,29 +78,41 @@
                 padding: 10px;
             }
         }
+
+        @media screen and (max-width: 522px) {
+            body {
+                width: 92%;
+                height: 100%;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
         @media screen and (max-width: 375px) {
-            /* 375 piksel veya daha küçük ekranlar için stil ayarlamaları */
+           
             .container {
-                /* Örneğin, container genişliğini değiştirebilirsiniz */
+               
                 width: 90%;
             }
         
             .todo-input-grid {
-                /* Örneğin, input alanlarının düzenini değiştirebilirsiniz */
+               
                 flex-direction: column;
             }
         }
         
         @media screen and (max-width: 425px) {
-            
+           
             .container {
-              
-                width: 70%;
+                
+                width: 50%;
             }
         
             .todo-input-grid {
-                /* Örneğin, input alanlarının düzenini değiştirebilirsiniz */
-                flex-direction: row;
+                
+                flex-direction: column;
+                
                 
             }
         }
@@ -118,7 +130,7 @@
     </div>
     
     <script>
-        // Önce localStorage'dan kayıtları alalım (varsa)
+        // Önce localStorage'dan kayıtları al (varsa)
         let todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
         function addTodo() {
