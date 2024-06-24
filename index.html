@@ -174,7 +174,14 @@
                 <button class="sil-buton" onclick="removeTodo(${i})">Sil</button>`;
                 todoListHTML += html;
             }
-            document.querySelector('.js-todo-list').innerHTML = todoListHTML;
+            const todoListElement = document.querySelector('.js-todo-list');
+            todoListElement.innerHTML = todoListHTML;
+            
+            if (todoList.length > 0) {
+                todoListElement.style.display = 'grid';
+                todoListElement.style.border = '1px solid #ddd';
+                todoListElement.style.borderColor = 'lightblue';
+            }
         }
 
         function saveTodoList() {
