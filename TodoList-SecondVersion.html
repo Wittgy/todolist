@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapılacaklar</title>
+    <style>
+        body {
+            font-family: Arial;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #cecbcb; /* Arka plan rengi */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .todo-input-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .name-input,
+        .due-date-input {
+            font-size: 15px;
+            padding: 6px;
+            margin-right: 10px;
+            flex-shrink: 0; /* Input alanlarının boyutlarının değişmemesi için */
+        }
+
+      
+        .js-button {
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 10px 20px; /* Butona daha fazla iç dolgu eklemek için */
+            flex-shrink: 0; /* Butonun boyutunun değişmemesi için */
+        }
+
+        .sil-buton {
+            background-color: darkred;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 10px 20px; /* Butona daha fazla iç dolgu eklemek için */
+            flex-shrink: 0; /* Butonun boyutunun değişmemesi için */
+        }
+
+        .js-todo-list {
+            display: none; /* Başlangıçta gizli */
+            max-height: 300px; /* Maksimum yükseklik */
+            overflow-y: auto; /* Dikey kaydırma çubuğu */
+            border: none; /* Başlangıçta kenarlık yok */
+            padding: 10px; /* İçerik dolgusu */
+            width: 100%; /* Tam genişlik */
+        }
+
+        .todo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            column-gap: 10px;
+            row-gap: 10px;
+            align-items: center;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Yapılacaklar Listesi</h2>
+        <div class="todo-input-grid">
+            <input class="js-input name-input" type="text" placeholder="Yapılacaklar">
+            <input class="js-due-date-input due-date-input" type="date">
+            <button onclick="addTodo();" class="js-button">Ekle</button>
+        </div>
+        <div class="js-todo-list todo-grid"></div>
+    </div>
+    
+    <script>
+        const todoList = [];
+
+        function addTodo() {
+            const inputElement = document.querySelector('.js-input');
+            const name = inputElement.value;
+            const dateInputElement = document.querySelector('.js-due-date-input');
+            const dueDate = dateInputElement.value;
+
+            if (name && dueDate) {
+                todoList.push({
+                    name,
+                    dueDate
+                });
+                inputElement.value = '';
+                renderList();
+                const todoListElement = document.querySelector('.js-todo-list');
+                todoListElement.style.display = 'grid'; // Listeyi görünür yap
+                todoListElement.style.border = '1px solid #ddd'; // Kenarlık ekle
+            }
+        }
+
+        function renderList() {
+            let todoListHTML = '';
+            for (let i = 0; i < todoList.length; i++) {
+                const todoObject = todoList[i];
+                const { name, dueDate } = todoObject;
+                const html = `
+                <div>${name}</div> 
+                <div>${dueDate}</div> 
+                <button class="sil-buton" onclick="removeTodo(${i})">Sil</button>`;
+                todoListHTML += html;
+            }
+            document.querySelector('.js-todo-list').innerHTML = todoListHTML;
+        }
+
+        function removeTodo(index) {
+            todoList.splice(index, 1);
+            renderList();
+            if (todoList.length === 0) {
+                const todoListElement = document.querySelector('.js-todo-list');
+                todoListElement.style.display = 'none'; // Listeyi tekrar gizle
+                todoListElement.style.border = 'none'; // Kenarlığı kaldır
+            }
+        }
+
+        renderList();
+    </script>
+</body>
+</html>
