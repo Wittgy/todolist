@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yapılacaklar</title>
+    <title>Todo List Practise 2</title>
     <style>
         body {
             font-family: Arial;
@@ -12,7 +12,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #cecbcb; /* Arka plan rengi */
+            background-color: #f0f0f0;
         }
 
         .container {
@@ -20,6 +20,10 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            width: 100%;
+            max-width: 600px; /* Maksimum genişlik ayarı */
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .todo-input-grid {
@@ -27,6 +31,7 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 10px;
+            width: 100%;
         }
 
         .name-input,
@@ -37,7 +42,6 @@
             flex-shrink: 0; /* Input alanlarının boyutlarının değişmemesi için */
         }
 
-      
         .js-button {
             background-color: green;
             color: white;
@@ -74,14 +78,45 @@
             row-gap: 10px;
             align-items: center;
         }
-       
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+        }
+        @media screen and (max-width: 375px) {
+            /* 375 piksel veya daha küçük ekranlar için stil ayarlamaları */
+            .container {
+                /* Örneğin, container genişliğini değiştirebilirsiniz */
+                width: 90%;
+            }
+        
+            .todo-input-grid {
+                /* Örneğin, input alanlarının düzenini değiştirebilirsiniz */
+                flex-direction: column;
+            }
+        }
+        
+        @media screen and (max-width: 425px) {
+            /* 425 piksel veya daha küçük ekranlar için stil ayarlamaları */
+            .container {
+                /* Örneğin, container genişliğini değiştirebilirsiniz */
+                width: 80%;
+            }
+        
+            .todo-input-grid {
+                /* Örneğin, input alanlarının düzenini değiştirebilirsiniz */
+                flex-direction: column;
+            }
+        }
+        
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Yapılacaklar Listesi</h2>
+        <h2>Todo List Practise</h2>
         <div class="todo-input-grid">
-            <input class="js-input name-input" type="text" placeholder="Yapılacaklar">
+            <input class="js-input name-input" type="text" placeholder="Yapılacak iş">
             <input class="js-due-date-input due-date-input" type="date">
             <button onclick="addTodo();" class="js-button">Ekle</button>
         </div>
