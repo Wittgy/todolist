@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List Practise 2</title>
+    <title>Todo List with Local Storage</title>
     <style>
         body {
             font-family: Arial;
@@ -12,7 +12,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
         }
 
         .container {
@@ -20,10 +19,6 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            width: 100%;
-            max-width: 600px; /* Maksimum genişlik ayarı */
-            padding: 20px;
-            box-sizing: border-box;
         }
 
         .todo-input-grid {
@@ -31,7 +26,6 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 10px;
-            width: 100%;
         }
 
         .name-input,
@@ -107,14 +101,14 @@
             .todo-input-grid {
                 /* Örneğin, input alanlarının düzenini değiştirebilirsiniz */
                 flex-direction: column;
+                gap: 0.5em;
             }
         }
-        
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Todo List Practise</h2>
+        <h2>Todo List with Local Storage</h2>
         <div class="todo-input-grid">
             <input class="js-input name-input" type="text" placeholder="Yapılacak iş">
             <input class="js-due-date-input due-date-input" type="date">
@@ -124,7 +118,8 @@
     </div>
     
     <script>
-        const todoList = [];
+        // Önce localStorage'dan kayıtları alalım (varsa)
+        let todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 
         function addTodo() {
             const inputElement = document.querySelector('.js-input');
@@ -138,7 +133,8 @@
                     dueDate
                 });
                 inputElement.value = '';
-                renderList();
+                saveTodoList(); // Yeni eklenen görevi kaydet
+                renderList(); // Liste yeniden render et
                 const todoListElement = document.querySelector('.js-todo-list');
                 todoListElement.style.display = 'grid'; // Listeyi görünür yap
                 todoListElement.style.border = '1px solid #ddd'; // Kenarlık ekle
@@ -159,9 +155,14 @@
             document.querySelector('.js-todo-list').innerHTML = todoListHTML;
         }
 
+        function saveTodoList() {
+            localStorage.setItem('todoList', JSON.stringify(todoList));
+        }
+
         function removeTodo(index) {
             todoList.splice(index, 1);
-            renderList();
+            saveTodoList(); // Liste güncellemelerini kaydet
+            renderList(); // Liste yeniden render et
             if (todoList.length === 0) {
                 const todoListElement = document.querySelector('.js-todo-list');
                 todoListElement.style.display = 'none'; // Listeyi tekrar gizle
@@ -169,7 +170,8 @@
             }
         }
 
-        renderList();
+        renderList(); // Sayfa yüklendiğinde listeyi render et
+
     </script>
 </body>
 </html>
